@@ -21,11 +21,11 @@ public class Machine
         commands = ExtractCommands(words);
 
         Queue<int> queue = new Queue<int>();
-        foreach (var command in commands)
+
+        for (int i = 0; i < commands.Count; i++)
         {
-            Console.WriteLine("\nCommand " + command);
-            queue = Operation(queue, command);
-            Console.WriteLine("Queue: " + string.Join(", ", queue));
+            queue = Operation(queue, commands[i]);
+            Console.WriteLine(i+1 +"º instrução: " + commands[i] + " => " +"[" + string.Join(", ", queue) + "]");
         }
     }
 
