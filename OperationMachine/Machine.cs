@@ -21,11 +21,19 @@ public class Machine
         commands = ExtractCommands(words);
 
         Queue<int> queue = new Queue<int>();
-
+        string success;
         for (int i = 0; i < commands.Count; i++)
         {
-            queue = Operation(queue, commands[i]);
-            Console.WriteLine(i+1 +"º instrução: " + commands[i] + " => " +"[" + string.Join(", ", queue) + "]");
+            success = Operation(queue, commands[i]);
+            if (success.Equals("sucesso"))
+            {
+                Console.WriteLine(i+1 +"º instrução: " + commands[i] + " => " +"[" + string.Join(", ", queue) + "]");
+            }
+            else
+            {
+                Console.WriteLine(i+1 +"º instrução: " + commands[i] + " => " +"Erro - " + success);
+            }
+            
         }
     }
 
@@ -50,7 +58,7 @@ public class Machine
         return commands;
     }
 
-    private static Queue<int> Operation(Queue<int> queue, string command)
+    private static string Operation(Queue<int> queue, string command)
     {
         if (command.StartsWith("PUSH"))
         {
@@ -65,60 +73,81 @@ public class Machine
             switch (command)
             {
                 case "ADD":
-                    if (queue.Count >= 2)
+                    if (queue.Count < 2)
                     {
-                        var addValor1 = queue.Dequeue();
-                        var addValor2 = queue.Dequeue();
-                        queue.Enqueue(addValor1 + addValor2);
+                        return "A queue não tem elementos suficientes para realizar a operação " + command;
                     }
+                    var addValor1 = queue.Dequeue();
+                    var addValor2 = queue.Dequeue();
+                    queue.Enqueue(addValor1 + addValor2);
+                    
                     break;
                 case "SUB":
-                    if (queue.Count >= 2)
+                    if (queue.Count < 2)
                     {
-                        var subValor1 = queue.Dequeue();
-                        var subValor2 = queue.Dequeue();
-                        queue.Enqueue(subValor1 - subValor2);
+                        return "A queue não tem elementos suficientes para realizar a operação " + command;
                     }
+                    var subValor1 = queue.Dequeue();
+                    var subValor2 = queue.Dequeue();
+                    queue.Enqueue(subValor1 - subValor2);
+                    
                     break;
                 case "MUL":
-                    if (queue.Count >= 2)
+                    if (queue.Count < 2)
                     {
-                        var mulValor1 = queue.Dequeue();
-                        var mulValor2 = queue.Dequeue();
-                        queue.Enqueue(mulValor1 * mulValor2);
+                        return "A queue não tem elementos suficientes para realizar a operação " + command;
                     }
+                    var mulValor1 = queue.Dequeue();
+                    var mulValor2 = queue.Dequeue();
+                    queue.Enqueue(mulValor1 * mulValor2);
+                    
                     break;
                 case "DIV":
-                    if (queue.Count >= 2)
+                    if (queue.Count < 2)
                     {
-                        var divValor1 = queue.Dequeue();
-                        var divValor2 = queue.Dequeue();
-                        if (divValor2 != 0)
-                        {
-                            queue.Enqueue(divValor1 / divValor2);
-                        }
+                        return "A queue não tem elementos suficientes para realizar a operação " + command;
                     }
+                    var divValor1 = queue.Dequeue();
+                    var divValor2 = queue.Dequeue();
+                    if (divValor2 == 0)
+                    {
+                        return "O 2º elemento da operação " + command + " não pode ser 0";
+                    }
+                    queue.Enqueue(divValor1 / divValor2);
+                    
                     break;
                 case "DUP":
+                    if (queue.Count < 1)
+                    {
+                        return "A queue não tem elementos suficientes para realizar a operação " + command;
+                    }
                     queue.Enqueue(queue.Peek());
+                    
                     break;
                 case "POP":
+                    if (queue.Count < 1)
+                    {
+                        return "A queue não tem elementos suficientes para realizar a operação " + command;
+                    }
                     queue.Dequeue();
+                    
                     break;
                 case "SWAP":
                     if (queue.Count >= 2)
                     {
-                        var swapValor1 = queue.Dequeue();
-                        var swapValor2 = queue.Dequeue();
-                        queue.Enqueue(swapValor2);
-                        queue.Enqueue(swapValor1);
+                        return "A queue não tem elementos suficientes para realizar a operação " + command;
                     }
+
+                    var swapValor1 = queue.Dequeue();
+                    var swapValor2 = queue.Dequeue();
+                    queue.Enqueue(swapValor2);
+                    queue.Enqueue(swapValor1);
+                    
                     break;
                 default:
-                    Console.WriteLine("Comando não reconhecido.");
-                    break;
+                    return "Comando não reconhecido.";
             }
         }
-        return queue;
+        return "sucesso";
     }
 }
