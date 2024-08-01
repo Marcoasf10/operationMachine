@@ -19,10 +19,13 @@ public class Machine
         
         List<string> commands = new List<string>();
         commands = ExtractCommands(words);
-        
+
+        Queue<int> queue = new Queue<int>();
         foreach (var command in commands)
         {
             Console.WriteLine("\nCommand " + command);
+            queue = Operation(queue, command);
+            Console.WriteLine("Queue: " + string.Join(", ", queue));
         }
     }
 
@@ -45,5 +48,77 @@ public class Machine
             }
         }
         return commands;
+    }
+
+    private static Queue<int> Operation(Queue<int> queue, string command)
+    {
+        if (command.StartsWith("PUSH"))
+        {
+            var valor = command.Substring(4); //extrair resto do comando a seguir a "PUSH"
+            if (int.TryParse(valor, out int number)) // tentar converter a string valor para um inteiro. Se a conversão for bem-sucedida, o número é armazenado em number
+            {
+                queue.Enqueue(number);
+            }
+        }
+        else
+        {
+            switch (command)
+            {
+                case "ADD":
+                    if (queue.Count >= 2)
+                    {
+                        var addValor1 = queue.Dequeue();
+                        var addValor2 = queue.Dequeue();
+                        queue.Enqueue(addValor1 + addValor2);
+                    }
+                    break;
+                case "SUB":
+                    if (queue.Count >= 2)
+                    {
+                        var subValor1 = queue.Dequeue();
+                        var subValor2 = queue.Dequeue();
+                        queue.Enqueue(subValor1 - subValor2);
+                    }
+                    break;
+                case "MUL":
+                    if (queue.Count >= 2)
+                    {
+                        var mulValor1 = queue.Dequeue();
+                        var mulValor2 = queue.Dequeue();
+                        queue.Enqueue(mulValor1 * mulValor2);
+                    }
+                    break;
+                case "DIV":
+                    if (queue.Count >= 2)
+                    {
+                        var divValor1 = queue.Dequeue();
+                        var divValor2 = queue.Dequeue();
+                        if (divValor2 != 0)
+                        {
+                            queue.Enqueue(divValor1 / divValor2);
+                        }
+                    }
+                    break;
+                case "DUP":
+                    queue.Enqueue(queue.Peek());
+                    break;
+                case "POP":
+                    queue.Dequeue();
+                    break;
+                case "SWAP":
+                    if (queue.Count >= 2)
+                    {
+                        var swapValor1 = queue.Dequeue();
+                        var swapValor2 = queue.Dequeue();
+                        queue.Enqueue(swapValor2);
+                        queue.Enqueue(swapValor1);
+                    }
+                    break;
+                default:
+                    Console.WriteLine("Comando não reconhecido.");
+                    break;
+            }
+        }
+        return queue;
     }
 }
