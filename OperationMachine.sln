@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OperationMachine", "OperationMachine\OperationMachine.csproj", "{D4A26E3C-3CB7-4E2C-8602-0FE2434B73ED}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OperationMachineTests", "OperationMachineTests\OperationMachineTests.csproj", "{265EE4B6-A1CB-4032-ACC0-BEBB5FEE3406}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{D4A26E3C-3CB7-4E2C-8602-0FE2434B73ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4A26E3C-3CB7-4E2C-8602-0FE2434B73ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4A26E3C-3CB7-4E2C-8602-0FE2434B73ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{265EE4B6-A1CB-4032-ACC0-BEBB5FEE3406}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{265EE4B6-A1CB-4032-ACC0-BEBB5FEE3406}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{265EE4B6-A1CB-4032-ACC0-BEBB5FEE3406}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{265EE4B6-A1CB-4032-ACC0-BEBB5FEE3406}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
