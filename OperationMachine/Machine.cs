@@ -98,14 +98,7 @@ public class Machine
         if (command.StartsWith("PUSH"))
         {
             var valor = command.Substring(4); //extrair resto do comando a seguir a "PUSH "
-            if (int.TryParse(valor, out int number)) // tentar converter a string valor para um inteiro. Se a conversão for bem-sucedida, o número é armazenado em number
-            {
-                queue.Enqueue(number);
-            }
-            else
-            {
-                return "Parâmetro inválido no PUSH";
-            }
+            queue.Enqueue(int.Parse(valor)); // Sabe-se que o valor é numérico porque foi verificado no método de extração dos comandos  
         }
         else
         {
@@ -172,11 +165,10 @@ public class Machine
                     
                     break;
                 case "SWAP":
-                    if (queue.Count >= 2)
+                    if (queue.Count < 2)
                     {
                         return "A queue não tem elementos suficientes para realizar a operação " + command;
                     }
-
                     var swapValor1 = queue.Dequeue();
                     var swapValor2 = queue.Dequeue();
                     queue.Enqueue(swapValor2);
