@@ -12,7 +12,7 @@ public class Machine
     static void Main(string[] args)
     {
         Console.WriteLine("Operations Machine\n");
-        Console.WriteLine("Para começar, digite um ou mais dos seguintes comandos: \"PUSH X\": Empurra o valor X para a queue.\n\"ADD\": Adiciona os dois valores no topo da queue e empurra o resultado de volta.\n\"SUB\": Subtrai o valor no topo da queue do próximo valor e empurra o resultado de volta.\n\"MUL\": Multiplica os dois valores no topo da queue e empurra o resultado de volta.\n\"DIV\": Divide o valor no topo da queue pelo próximo valor e empurra o resultado de volta.\n\"DUP\": Duplica o valor no topo da queue.\n\"POP\": Remove o valor no topo da queue.\nSWAP: Inverte a posição dos dois valores no topo da queue.\n");
+        Console.WriteLine("Para começar, digite um ou mais dos seguintes comandos: \n\n\"PUSH X\": Empurra o valor X para a queue.\n\"ADD\": Adiciona os dois valores no topo da queue e empurra o resultado de volta.\n\"SUB\": Subtrai o valor no topo da queue do próximo valor e empurra o resultado de volta.\n\"MUL\": Multiplica os dois valores no topo da queue e empurra o resultado de volta.\n\"DIV\": Divide o valor no topo da queue pelo próximo valor e empurra o resultado de volta.\n\"DUP\": Duplica o valor no topo da queue.\n\"POP\": Remove o valor no topo da queue.\nSWAP: Inverte a posição dos dois valores no topo da queue.\n");
         Console.WriteLine("Exemplo de entrada: \"PUSH 3 PUSH 4 ADD DUP MUL POP SUB\"");
 
         Queue<int> queue = new Queue<int>();
@@ -37,11 +37,11 @@ public class Machine
                     success = Operation(queue, commands[i]);
                     if (success.Equals("sucesso"))
                     {
-                        Console.WriteLine(i + 1 + "º instrução: " + commands[i] + " => " + "[" + string.Join(", ", queue) + "]");
+                        Console.WriteLine("\n" + i + 1 + "º instrução: " + commands[i] + " => " + "[" + string.Join(", ", queue) + "]");
                     }
                     else
                     {
-                        Console.WriteLine(i + 1 + "º instrução: " + commands[i] + " => " + "Erro - " + success);
+                        Console.WriteLine("\n" + i + 1 + "º instrução: " + commands[i] + " => " + "Erro - " + success);
                     }
                 }
             }
@@ -50,7 +50,7 @@ public class Machine
                 Console.WriteLine("\nNão foram introduzidos comandos válidos");
             }
         }
-        Console.WriteLine("Programa encerrado. Pressione Enter para sair...");
+        Console.WriteLine("\nPrograma terminado. Pressione Enter para sair...");
         Console.ReadLine();
     }
     
