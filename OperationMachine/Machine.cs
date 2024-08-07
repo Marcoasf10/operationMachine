@@ -2,11 +2,23 @@ using System.Runtime.CompilerServices;
 
 namespace OperationMachine;
 
+static class Constants
+{
+    public const string Push = "PUSH";
+    public const string Add = "ADD";
+    public const string Sub = "SUB";
+    public const string Mul = "MUL";
+    public const string Div = "DIV";
+    public const string Dup = "DUP";
+    public const string Pop = "POP";
+    public const string Swap = "SWAP";
+    public const string Success = "SUCCESS";
+}
 public class Machine
 {
     private static readonly HashSet<string> KnownCommands = new HashSet<string> 
     { 
-        "PUSH", "ADD", "SUB", "MUL", "DIV", "DUP", "POP", "SWAP" 
+        Constants.Push, Constants.Add, Constants.Sub, Constants.Mul, Constants.Div, Constants.Dup, Constants.Pop, Constants.Swap 
     };
     
     static void Main(string[] args)
@@ -35,7 +47,7 @@ public class Machine
                 for (int i = 0; i < commands.Count; i++)
                 {
                     success = Operation(queue, commands[i]);
-                    if (success.Equals("sucesso"))
+                    if (success.Equals(Constants.Success))
                     {
                         Console.WriteLine("\n" + i + 1 + "º instrução: " + commands[i] + " => " + "[" + string.Join(", ", queue) + "]");
                     }
@@ -62,7 +74,7 @@ public class Machine
             words[i] = words[i].ToUpper();
             if (KnownCommands.Contains(words[i]))
             {
-                if (!words[i].Equals("PUSH"))
+                if (!words[i].Equals(Constants.Push))
                 {
                     commands.Add(words[i]);
                 }
@@ -95,7 +107,7 @@ public class Machine
 
     public static string Operation(Queue<int> queue, string command)
     {
-        if (command.StartsWith("PUSH"))
+        if (command.StartsWith(Constants.Push))
         {
             var valor = command.Substring(4); //extrair resto do comando a seguir a "PUSH "
             queue.Enqueue(int.Parse(valor)); // Sabe-se que o valor é numérico porque foi verificado no método de extração dos comandos  
@@ -104,7 +116,7 @@ public class Machine
         {
             switch (command)
             {
-                case "ADD":
+                case Constants.Add:
                     if (queue.Count < 2)
                     {
                         return "A queue não tem elementos suficientes para realizar a operação " + command;
@@ -114,7 +126,7 @@ public class Machine
                     queue.Enqueue(addValor1 + addValor2);
                     
                     break;
-                case "SUB":
+                case Constants.Sub:
                     if (queue.Count < 2)
                     {
                         return "A queue não tem elementos suficientes para realizar a operação " + command;
@@ -124,7 +136,7 @@ public class Machine
                     queue.Enqueue(subValor1 - subValor2);
                     
                     break;
-                case "MUL":
+                case Constants.Mul:
                     if (queue.Count < 2)
                     {
                         return "A queue não tem elementos suficientes para realizar a operação " + command;
@@ -134,7 +146,7 @@ public class Machine
                     queue.Enqueue(mulValor1 * mulValor2);
                     
                     break;
-                case "DIV":
+                case Constants.Div:
                     if (queue.Count < 2)
                     {
                         return "A queue não tem elementos suficientes para realizar a operação " + command;
@@ -148,7 +160,7 @@ public class Machine
                     queue.Enqueue(divValor1 / divValor2);
                     
                     break;
-                case "DUP":
+                case Constants.Dup:
                     if (queue.Count < 1)
                     {
                         return "A queue não tem elementos suficientes para realizar a operação " + command;
@@ -156,7 +168,7 @@ public class Machine
                     queue.Enqueue(queue.Peek());
                     
                     break;
-                case "POP":
+                case Constants.Pop:
                     if (queue.Count < 1)
                     {
                         return "A queue não tem elementos suficientes para realizar a operação " + command;
@@ -164,7 +176,7 @@ public class Machine
                     queue.Dequeue();
                     
                     break;
-                case "SWAP":
+                case Constants.Swap:
                     if (queue.Count < 2)
                     {
                         return "A queue não tem elementos suficientes para realizar a operação " + command;
@@ -179,6 +191,6 @@ public class Machine
                     return "Comando não reconhecido.";
             }
         }
-        return "sucesso";
+        return Constants.Success;
     }
 }

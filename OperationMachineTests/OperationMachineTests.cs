@@ -63,7 +63,7 @@ public class OperationMachineTests
         foreach (var command in commands)
         {
             string result = Machine.Operation(queue, command);
-            if (result != "sucesso")
+            if (result != "SUCCESS")
             {
                 errorCounter++;
             }
@@ -86,7 +86,7 @@ public class OperationMachineTests
         foreach (var command in commands)
         {
             string result = Machine.Operation(queue, command);
-            if (result != "sucesso")
+            if (result != "SUCCESS")
             {
                 errorMessages.Add(result);
             }
